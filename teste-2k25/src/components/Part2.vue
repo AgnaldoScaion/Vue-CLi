@@ -1,7 +1,6 @@
 <script setup>
-import Exemplo01 from './components/exemplo01interpolacao.vue'
-import Exemplo02 from './components/exemplo02.vue'
-import Exemplo03 from './components/exemplo03.vue'
+// Importe os novos componentes para a Parte 2
+import Exemplo02condicional from '../components/exemplo02condicional.vue';
 </script>
 
 <template>
@@ -16,7 +15,7 @@ import Exemplo03 from './components/exemplo03.vue'
           </div>
           <div class="title-section">
             <h1 class="main-title">Agnaldo<span class="accent">Scaion</span></h1>
-            <p class="subtitle">Component Showcase Platform</p>
+            <p class="subtitle">Component Showcase Platform - Part 2</p>
           </div>
         </div>
         <div class="credits-button">
@@ -30,36 +29,36 @@ import Exemplo03 from './components/exemplo03.vue'
     </header>
 
     <main class="components-grid">
-      <div class="component-card" data-index="01">
+      <div class="component-card" data-index="04">
         <div class="card-header">
-          <div class="card-number">01</div>
-          <h2>String Interpolation</h2>
+          <div class="card-number">04</div>
+          <h2>New Feature 1</h2>
           <div class="card-status"></div>
         </div>
         <div class="card-content">
-          <Exemplo01 />
+          <Exemplo02condicional/>
         </div>
       </div>
 
-      <div class="component-card" data-index="02">
+      <div class="component-card" data-index="05">
         <div class="card-header">
-          <div class="card-number">02</div>
-          <h2>Calculator Engine</h2>
+          <div class="card-number">05</div>
+          <h2>New Feature 2</h2>
           <div class="card-status"></div>
         </div>
         <div class="card-content">
-          <Exemplo02 />
+          <Exemplo05 />
         </div>
       </div>
 
-      <div class="component-card" data-index="03">
+      <div class="component-card" data-index="06">
         <div class="card-header">
-          <div class="card-number">03</div>
-          <h2>DateTime Module</h2>
+          <div class="card-number">06</div>
+          <h2>New Feature 3</h2>
           <div class="card-status"></div>
         </div>
         <div class="card-content">
-          <Exemplo03 />
+          <Exemplo06 />
         </div>
       </div>
     </main>
@@ -67,7 +66,7 @@ import Exemplo03 from './components/exemplo03.vue'
     <footer class="app-footer">
       <div class="footer-content">
         <div class="footer-left">
-          <p>VueTech Platform v2.1.0</p>
+          <p>VueTech Platform v2.2.0</p>
         </div>
         <div class="footer-right">
           <div class="tech-metrics">
@@ -75,13 +74,11 @@ import Exemplo03 from './components/exemplo03.vue'
             <span class="metric">Uptime: 99.9%</span>
           </div>
         </div>
-        <div class="next-page-button">
-          <router-link to="/part2" class="next-button">Go to Part 2</router-link>
-        </div>
       </div>
     </footer>
   </div>
 </template>
+
 
 <style>
 :root {
@@ -422,25 +419,6 @@ body {
 }
 
 .github-button:hover {
-  background: rgba(255, 215, 0, 0.8);
-}
-
-.next-page-button {
-  margin-left: auto;
-}
-
-.next-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: var(--accent-primary);
-  color: var(--bg-primary);
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.next-button:hover {
   background: rgba(255, 215, 0, 0.8);
 }
 </style>
