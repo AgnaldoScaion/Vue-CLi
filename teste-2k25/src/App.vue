@@ -7,7 +7,7 @@ import Exemplo03 from './components/exemplo03.vue'
 <template>
   <div class="app-container">
     <div class="background-grid"></div>
-
+    <router-view />
     <header class="app-header">
       <div class="header-content">
         <div class="logo-section">
