@@ -7,7 +7,7 @@ import Exemplo03 from './components/exemplo03.vue'
 <template>
   <div class="app-container">
     <div class="background-grid"></div>
-    <router-view />
+    
     <header class="app-header">
       <div class="header-content">
         <div class="logo-section">
@@ -16,15 +16,11 @@ import Exemplo03 from './components/exemplo03.vue'
           </div>
           <div class="title-section">
             <h1 class="main-title">Agnaldo<span class="accent">Scaion</span></h1>
-            <p class="subtitle">Component Showcase Platform</p>
+            <p class="subtitle">Vue.js Showcase</p>
           </div>
         </div>
         <div class="credits-button">
           <a href="https://agnaldoscaion.netlify.app" target="_blank" class="github-button">Meu GitHub</a>
-        </div>
-        <div class="status-indicator">
-          <div class="status-dot"></div>
-          <span>Active</span>
         </div>
       </div>
     </header>
@@ -34,7 +30,6 @@ import Exemplo03 from './components/exemplo03.vue'
         <div class="card-header">
           <div class="card-number">01</div>
           <h2>String Interpolation</h2>
-          <div class="card-status"></div>
         </div>
         <div class="card-content">
           <Exemplo01 />
@@ -45,18 +40,16 @@ import Exemplo03 from './components/exemplo03.vue'
         <div class="card-header">
           <div class="card-number">02</div>
           <h2>Calculator Engine</h2>
-          <div class="card-status"></div>
         </div>
         <div class="card-content">
           <Exemplo02 />
         </div>
       </div>
 
-      <div class="component-card" data-index="03">
+            <div class="component-card" data-index="02">
         <div class="card-header">
-          <div class="card-number">03</div>
+          <div class="card-number">02</div>
           <h2>DateTime Module</h2>
-          <div class="card-status"></div>
         </div>
         <div class="card-content">
           <Exemplo03 />
@@ -74,9 +67,6 @@ import Exemplo03 from './components/exemplo03.vue'
             <span class="metric">Performance: 98%</span>
             <span class="metric">Uptime: 99.9%</span>
           </div>
-        </div>
-        <div class="next-page-button">
-          <router-link to="/part2" class="next-button">Go to Part 2</router-link>
         </div>
       </div>
     </footer>
