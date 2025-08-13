@@ -9,6 +9,8 @@ import Exemplo06 from "./components/Exercicios 02/exemplo06-idade.vue";
 import Exemplo07 from "./components/Exercicios 03/exemplo07-lista-compras.vue";
 import Exemplo08 from "./components/Exercicios 03/exemplo08-catalogo.vue";
 import Exemplo09 from "./components/Exercicios 04/exemplo09-html-render.vue";
+import Exemplo10 from "./components/Exercicios 05/exemplo10-Form.vue";
+import exemplo11 from './components/Exercicios 05/exemplo11-imc.vue';
 
 const currentModule = ref(1)
 
@@ -34,15 +36,23 @@ const modules = {
     title: "Módulo 3 - Listas e Renderização",
     description: "Catalogo de Produtos e Listas",
     exercises: [
-      { id: "01", title: "Lista de Compras", component: Exemplo07 },
-      { id: "02", title: "Catálogo de Produtos", component: Exemplo08 }
+      { id: "1", title: "Lista de Compras", component: Exemplo07 },
+      { id: "2", title: "Catálogo de Produtos", component: Exemplo08 }
     ]
   },
   4: {
     title: "Módulo 4 - HTML Dinâmico",
     description: "Renderização de HTML e Componentes Dinâmicos",
     exercises: [
-      { id: "01", title: "HTML Render", component: Exemplo09 }
+      { id: "1", title: "HTML Render", component: Exemplo09 }
+    ]
+  },
+  5: {
+    title: "Módulo 5 - Formulários",
+    description: "Formulários e Validações",
+    exercises: [
+      { id: "1", title: "Formulário Interativo", component: Exemplo10 },
+      { id: "2", title: "IMC Calculator", component: exemplo11 }
     ]
   }
 }
