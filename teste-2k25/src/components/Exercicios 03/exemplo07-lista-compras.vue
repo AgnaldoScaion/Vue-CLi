@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const compras = ref(['Pão', 'Leite', 'Ovos', 'Frutas'])
 </script>
 

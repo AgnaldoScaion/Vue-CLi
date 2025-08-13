@@ -8,6 +8,7 @@ import Exemplo05 from "./components/Exercicios 02/exemplo05-login.vue";
 import Exemplo06 from "./components/Exercicios 02/exemplo06-idade.vue";
 import Exemplo07 from "./components/Exercicios 03/exemplo07-lista-compras.vue";
 import Exemplo08 from "./components/Exercicios 03/exemplo08-catalogo.vue";
+import Exemplo09 from "./components/Exercicios 04/exemplo09-html-render.vue";
 
 const currentModule = ref(1)
 
@@ -24,17 +25,24 @@ const modules = {
   },
   2: {
     title: "Módulo 2 - Componentes Avançados",
-    description: "Componentes e reatividade avançada",
+    description: "Componentes e Login System",
     exercises: [
       { id: "1", title: "Login System", component: Exemplo05 },
       { id: "2", title: "Age Classifier", component: Exemplo06 }]
   },
   3: {
     title: "Módulo 3 - Listas e Renderização",
-    description: "Renderização de listas e dados complexos",
+    description: "Catalogo de Produtos e Listas",
     exercises: [
       { id: "01", title: "Lista de Compras", component: Exemplo07 },
       { id: "02", title: "Catálogo de Produtos", component: Exemplo08 }
+    ]
+  },
+  4: {
+    title: "Módulo 4 - HTML Dinâmico",
+    description: "Renderização de HTML e Componentes Dinâmicos",
+    exercises: [
+      { id: "01", title: "HTML Render", component: Exemplo09 }
     ]
   }
 }
