@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-let validacao =   false
+let validacao =  false
 
 let isError = true
 let isActive = false

@@ -1,6 +1,6 @@
 <script setup>
-let num1 = 5
-let num2 = 5  
+let num1 = 17
+let num2 = 18
 </script>
 
 <template>

@@ -91,7 +91,7 @@ onUnmounted(() => {
 
 const modules = {
   1: {
-    title: "Módulo 1 - Fundamentos",
+    title: "Módulo 1 - Exemplos Básicos",
     description: "Conceitos básicos e exemplos práticos",
     exercises: [
       { id: "1", title: "String Interpolation", component: Exemplo01 },
