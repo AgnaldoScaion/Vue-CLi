@@ -48,7 +48,7 @@ const toggleLogin = () => {
   border: none;
   border-radius: 8px;
   font-weight: bold;
-  cursor: pointer;
+  cursor: none; /* Garante que o cursor padrão do Windows não apareça */
   transition: background-color 0.3s ease;
 }
 

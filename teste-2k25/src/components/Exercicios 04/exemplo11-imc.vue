@@ -63,53 +63,56 @@ const classificacaoCor = computed(() => {
       </div>
     </div>
     
-    <div v-if="imc" class="result-section">
-      <h3>Resultado</h3>
-      <div class="result-box">
-        <p>Seu IMC: <strong>{{ imc }}</strong></p>
-        <p>Classificação: 
-          <span 
-            class="classification-badge"
-            :style="{ backgroundColor: classificacaoCor }"
-          >
-            {{ classificacao }}
-          </span>
-        </p>
-      </div>
-      
-      <div class="reference-table">
-        <h4>Tabela de Referência:</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>IMC</th>
-              <th>Classificação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr :class="{ active: classificacao === 'Baixo peso' }">
-              <td>&lt; 18.5</td>
-              <td>Baixo peso</td>
-            </tr>
-            <tr :class="{ active: classificacao === 'Peso normal' }">
-              <td>18.5 - 24.9</td>
-              <td>Peso normal</td>
-            </tr>
-            <tr :class="{ active: classificacao === 'Sobrepeso' }">
-              <td>25 - 29.9</td>
-              <td>Sobrepeso</td>
-            </tr>
-            <tr :class="{ active: classificacao === 'Obesidade' }">
-              <td>≥ 30</td>
-              <td>Obesidade</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    
-    <div v-else class="empty-state">
-      <p>Informe seu peso e altura para calcular o IMC</p>
+    <div class="imc-content-wrapper">
+      <Transition name="fade">
+        <div v-if="imc" class="result-section">
+          <h3>Resultado</h3>
+          <div class="result-box">
+            <p>Seu IMC: <strong>{{ imc }}</strong></p>
+            <p>Classificação: 
+              <span 
+                class="classification-badge"
+                :style="{ backgroundColor: classificacaoCor }"
+              >
+                {{ classificacao }}
+              </span>
+            </p>
+          </div>
+          
+          <div class="reference-table">
+            <h4>Tabela de Referência:</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>IMC</th>
+                  <th>Classificação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr :class="{ active: classificacao === 'Baixo peso' }">
+                  <td>&lt; 18.5</td>
+                  <td>Baixo peso</td>
+                </tr>
+                <tr :class="{ active: classificacao === 'Peso normal' }">
+                  <td>18.5 - 24.9</td>
+                  <td>Peso normal</td>
+                </tr>
+                <tr :class="{ active: classificacao === 'Sobrepeso' }">
+                  <td>25 - 29.9</td>
+                  <td>Sobrepeso</td>
+                </tr>
+                <tr :class="{ active: classificacao === 'Obesidade' }">
+                  <td>≥ 30</td>
+                  <td>Obesidade</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div v-else class="empty-state">
+          <p>Informe seu peso e altura para calcular o IMC</p>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
@@ -117,10 +120,10 @@ const classificacaoCor = computed(() => {
 <style scoped>
 .imc-container {
   padding: 1rem;
-    min-height: 80px; /* ajuste conforme necessário */
+  min-height: 450px; /* Ajustado para acomodar o conteúdo completo e evitar shifts */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Alterado para evitar centralização que causa jumps */
 }
 
 .imc-form {
@@ -143,9 +146,16 @@ input {
   color: var(--text-primary);
 }
 
+.imc-content-wrapper {
+  min-height: 350px; /* Reserva espaço para o estado de resultado, evitando layout shifts */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .result-section {
   margin-top: 2rem;
-    min-height: 80px; /* ajuste conforme necessário */
+  min-height: 80px; /* Mantido para consistência */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -157,7 +167,7 @@ input {
   border-radius: 8px;
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
-  min-height: 80px; /* ajuste conforme necessário */
+  min-height: 80px; /* Mantido */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -202,6 +212,24 @@ tr.active {
   background: var(--bg-secondary);
   border-radius: 8px;
   border: 1px dashed var(--border-color);
+}
+
+/* Estilos para a transição fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 :root {
