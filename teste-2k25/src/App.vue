@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 import Exemplo01 from "./components/Exemplos/exemplo01interpolacao.vue";
 import Exemplo02 from "./components/Exemplos/exemplo02.vue";
 import Exemplo03 from "./components/Exemplos/exemplo03.vue";
@@ -10,84 +10,85 @@ import Exemplo07 from "./components/Exercicios 02/exemplo07-lista-compras.vue";
 import Exemplo08 from "./components/Exercicios 02/exemplo08-catalogo.vue";
 import Exemplo09 from "./components/Exercicios 03/exemplo09-html-render.vue";
 import Exemplo10 from "./components/Exercicios 04/exemplo10-Form.vue";
-import exemplo11 from './components/Exercicios 04/exemplo11-imc.vue';
+import exemplo11 from "./components/Exercicios 04/exemplo11-imc.vue";
 import Exemplo12 from "./components/Exemplos/exemplo07classe.vue";
 import Exemplo13 from "./components/Exercicios 05/exemplo08botoes.vue";
 import Exemplo14 from "./components/Exercicios 05/exemplo09clique.vue";
 import Exemplo15 from "./components/Exemplos/exemplo10teclado.vue";
 import Exemplo16 from "./components/Exercicios 06/exemplo11evento.vue";
 import Exemplo17 from "./components/Exemplos/exemplo12enviar.vue";
+import Exemplo18 from "./components/Exercicios 07/exemplo14products.vue"
 
-
-
-const currentModule = ref(1)
-const gridRef = ref(null) // Referência para a seção components-grid
+const currentModule = ref(1);
+const gridRef = ref(null); // Referência para a seção components-grid
 
 // Lógica para o cursor personalizado
-const cursorRef = ref(null)
-const trailRef = ref(null) // Referência para o rastro
-const isClickable = ref(false) // Controla o estado de clique (cursor branco)
-const isCursorVisible = ref(true) // Controla a visibilidade do cursor
+const cursorRef = ref(null);
+const trailRef = ref(null); // Referência para o rastro
+const isClickable = ref(false); // Controla o estado de clique (cursor branco)
+const isCursorVisible = ref(true); // Controla a visibilidade do cursor
 
 // Posições suavizadas
-const cursorPos = ref({ x: 0, y: 0 })
-const trailPos = ref({ x: 0, y: 0 })
+const cursorPos = ref({ x: 0, y: 0 });
+const trailPos = ref({ x: 0, y: 0 });
 
 // Função para atualizar a posição do cursor
 const updateCursorPosition = (e) => {
-  cursorPos.value = { x: e.clientX, y: e.clientY }
-}
+  cursorPos.value = { x: e.clientX, y: e.clientY };
+};
 
 // Detectar elementos clicáveis, exceto .login-button
 const handleMouseOver = (e) => {
-  const target = e.target.closest('a, button, input, [role="button"], [style*="cursor: pointer"], .clickable')
-  isClickable.value = target && !target.classList.contains('login-button')
-}
+  const target = e.target.closest(
+    'a, button, input, [role="button"], [style*="cursor: pointer"], .clickable'
+  );
+  isClickable.value = target && !target.classList.contains("login-button");
+};
 
 // Ocultar cursor ao sair da guia
 const handleMouseLeave = () => {
-  isCursorVisible.value = false
-}
+  isCursorVisible.value = false;
+};
 
 // Mostrar cursor ao retornar à guia
 const handleMouseEnter = () => {
-  isCursorVisible.value = true
-}
+  isCursorVisible.value = true;
+};
 
 // Função para animar o cursor e o rastro
 const animateCursor = () => {
   if (cursorRef.value && trailRef.value) {
     // Atualiza a visibilidade
-    cursorRef.value.style.opacity = isCursorVisible.value ? 1 : 0
-    trailRef.value.style.opacity = isCursorVisible.value ? 0.5 : 0
+    cursorRef.value.style.opacity = isCursorVisible.value ? 1 : 0;
+    trailRef.value.style.opacity = isCursorVisible.value ? 0.5 : 0;
 
     // Atualiza a posição do cursor principal
-    cursorRef.value.style.left = `${cursorPos.value.x}px`
-    cursorRef.value.style.top = `${cursorPos.value.y}px`
+    cursorRef.value.style.left = `${cursorPos.value.x}px`;
+    cursorRef.value.style.top = `${cursorPos.value.y}px`;
 
     // Atualiza a posição do rastro com suavização
-    trailPos.value.x += (cursorPos.value.x - trailPos.value.x) * 0.1
-    trailPos.value.y += (cursorPos.value.y - trailPos.value.y) * 0.1
-    trailRef.value.style.left = `${trailPos.value.x}px`
-    trailRef.value.style.top = `${trailPos.value.y}px`
+    trailPos.value.x += (cursorPos.value.x - trailPos.value.x) * 0.1;
+    trailPos.value.y += (cursorPos.value.y - trailPos.value.y) * 0.1;
+    trailRef.value.style.left = `${trailPos.value.x}px`;
+    trailRef.value.style.top = `${trailPos.value.y}px`;
   }
-  requestAnimationFrame(animateCursor)
-}
+  requestAnimationFrame(animateCursor);
+};
 
 onMounted(() => {
-  window.addEventListener('mousemove', updateCursorPosition)
-  window.addEventListener('mouseover', handleMouseOver)
-  window.addEventListener('mouseleave', handleMouseLeave)
-  window.addEventListener('mouseenter', handleMouseEnter)
-  requestAnimationFrame(animateCursor)
-})
+  window.addEventListener("mousemove", updateCursorPosition);
+  window.addEventListener("mouseover", handleMouseOver);
+  window.addEventListener("mouseleave", handleMouseLeave);
+  window.addEventListener("mouseenter", handleMouseEnter);
+  requestAnimationFrame(animateCursor);
+});
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', updateCursorPosition)
-  window.removeEventListener('mouseover', handleMouseOver)
-  window.removeEventListener('mouseleave', handleMouseLeave)
-  window.removeEventListener('mouseenter', handleMouseEnter)
-})
+  window.removeEventListener("mousemove", updateCursorPosition);
+  window.removeEventListener("mouseover", handleMouseOver);
+  window.removeEventListener("mouseleave", handleMouseLeave);
+  window.removeEventListener("mouseenter", handleMouseEnter);
+});
 
 const modules = {
   1: {
@@ -100,30 +101,29 @@ const modules = {
       { id: "4", title: "Name", component: Exemplo04 },
       { id: "5", title: "Class Directive", component: Exemplo12 },
       { id: "6", title: "Keyboard Events", component: Exemplo15 },
-      {id : "7", title: "Enviar Dados", component: Exemplo17}
-    ]
+      { id: "7", title: "Enviar Dados", component: Exemplo17 }
+    ],
   },
   2: {
     title: "Módulo 2 - Componentes Avançados",
     description: "Componentes e Login System",
     exercises: [
       { id: "1", title: "Login System", component: Exemplo05 },
-      { id: "2", title: "Age Classifier", component: Exemplo06 }]
+      { id: "2", title: "Age Classifier", component: Exemplo06 },
+    ],
   },
   3: {
     title: "Módulo 3 - Listas e Renderização",
     description: "Catalogo de Produtos e Listas",
     exercises: [
       { id: "1", title: "Lista de Compras", component: Exemplo07 },
-      { id: "2", title: "Catálogo de Produtos", component: Exemplo08 }
-    ]
+      { id: "2", title: "Catálogo de Produtos", component: Exemplo08 },
+    ],
   },
   4: {
     title: "Módulo 4 - HTML Dinâmico",
     description: "Renderização de HTML e Componentes Dinâmicos",
-    exercises: [
-      { id: "1", title: "HTML Render", component: Exemplo09 }
-    ]
+    exercises: [{ id: "1", title: "HTML Render", component: Exemplo09 }],
   },
   5: {
     title: "Módulo 5 - Formulários e Botoes",
@@ -132,32 +132,47 @@ const modules = {
       { id: "1", title: "Formulário Interativo", component: Exemplo10 },
       { id: "2", title: "IMC Calculator", component: exemplo11 },
       { id: "3", title: "Botões Dinâmicos", component: Exemplo13 },
-      { id: "4", title: "Eventos de Clique", component: Exemplo14 }
-    ]
+      { id: "4", title: "Eventos de Clique", component: Exemplo14 },
+    ],
   },
   6: {
     title: "Módulo 6 - Eventos Personalizados",
     description: "Eventos de Teclado e Clique",
     exercises: [
-      { id: "2", title: "Custom Event Handling", component: Exemplo16 }
-    ]
-  }
-}
+      { id: "2", title: "Custom Event Handling", component: Exemplo16 },
+    ],
+  },
+  7: {
+  title: "Módulo 7 - Product Card",
+  description: "Exibição de produtos com props dinâmicas",
+  exercises: [
+    { id: "1", title: "Product Card Demo", component: Exemplo18 },
+  ],
+},
+};
 
 const switchModule = (moduleNumber) => {
-  currentModule.value = moduleNumber
+  currentModule.value = moduleNumber;
   if (gridRef.value) {
-    gridRef.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    gridRef.value.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-}
+};
 </script>
 
 <template>
   <div class="app-container">
     <div class="background-grid"></div>
     <!-- Cursor personalizado -->
-    <div ref="cursorRef" class="custom-cursor" :class="{ clickable: isClickable }"></div>
-    <div ref="trailRef" class="cursor-trail" :class="{ clickable: isClickable }"></div>
+    <div
+      ref="cursorRef"
+      class="custom-cursor"
+      :class="{ clickable: isClickable }"
+    ></div>
+    <div
+      ref="trailRef"
+      class="cursor-trail"
+      :class="{ clickable: isClickable }"
+    ></div>
 
     <header class="app-header">
       <div class="header-content">
@@ -177,7 +192,8 @@ const switchModule = (moduleNumber) => {
             href="https://agnaldoscaion.netlify.app"
             target="_blank"
             class="github-button"
-          >Meu Portfólio</a>
+            >Meu Portfólio</a
+          >
         </div>
       </div>
     </header>
@@ -185,8 +201,8 @@ const switchModule = (moduleNumber) => {
     <nav class="module-navigation">
       <div class="nav-content">
         <div class="module-tabs">
-          <button 
-            v-for="(module, key) in modules" 
+          <button
+            v-for="(module, key) in modules"
             :key="key"
             @click="switchModule(key)"
             :class="['module-tab', { active: currentModule === key }]"
@@ -197,16 +213,18 @@ const switchModule = (moduleNumber) => {
         </div>
         <div class="module-info">
           <h2 class="module-title">{{ modules[currentModule].title }}</h2>
-          <p class="module-description">{{ modules[currentModule].description }}</p>
+          <p class="module-description">
+            {{ modules[currentModule].description }}
+          </p>
         </div>
       </div>
     </nav>
 
     <main class="components-grid" ref="gridRef">
       <TransitionGroup name="tech-grid" tag="div" class="components-grid-inner">
-        <div 
+        <div
           v-if="modules[currentModule].exercises.length > 0"
-          v-for="exercise in modules[currentModule].exercises" 
+          v-for="exercise in modules[currentModule].exercises"
           :key="`${currentModule}-${exercise.id}`"
           class="component-card"
         >
@@ -225,7 +243,10 @@ const switchModule = (moduleNumber) => {
             <div class="construction-icon">🚧</div>
           </div>
           <h3>Módulo em Desenvolvimento</h3>
-          <p>Os exercícios do {{ modules[currentModule].title }} serão adicionados em breve.</p>
+          <p>
+            Os exercícios do {{ modules[currentModule].title }} serão
+            adicionados em breve.
+          </p>
           <div class="coming-soon">
             <span class="pulse-dot"></span>
             Em breve...
@@ -241,8 +262,12 @@ const switchModule = (moduleNumber) => {
         </div>
         <div class="footer-right">
           <div class="tech-metrics">
-            <span class="metric">Módulos: {{ Object.keys(modules).length }}</span>
-            <span class="metric">Exercícios: {{ modules[currentModule].exercises.length }}</span>
+            <span class="metric"
+              >Módulos: {{ Object.keys(modules).length }}</span
+            >
+            <span class="metric"
+              >Exercícios: {{ modules[currentModule].exercises.length }}</span
+            >
             <span class="metric">Performance: 98%</span>
           </div>
         </div>
@@ -297,7 +322,8 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s ease, border-color 0.2s ease, opacity 0.3s ease-out;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background 0.2s ease, border-color 0.2s ease, opacity 0.3s ease-out;
   box-shadow: 0 0 8px var(--accent-primary);
 }
 
@@ -317,7 +343,8 @@ body {
   pointer-events: none;
   z-index: 9998;
   opacity: 0.5;
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s ease, border-color 0.2s ease, opacity 0.4s ease-out;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background 0.2s ease, border-color 0.2s ease, opacity 0.4s ease-out;
   box-shadow: 0 0 6px var(--accent-primary);
 }
 
@@ -327,7 +354,12 @@ body {
 }
 
 /* Ocultar cursor padrão do Windows em elementos clicáveis, exceto .login-button */
-a, button:not(.login-button), input, [role="button"], [style*="cursor: pointer"], .clickable {
+a,
+button:not(.login-button),
+input,
+[role="button"],
+[style*="cursor: pointer"],
+.clickable {
   cursor: none;
 }
 
@@ -772,17 +804,28 @@ input:hover ~ .cursor-trail,
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-primary),
+    transparent
+  );
   animation: glitch-line 0.4s ease;
 }
 
 @keyframes glitch-line {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -798,7 +841,8 @@ input:hover ~ .cursor-trail,
     padding: 0 1rem;
   }
 
-  .app-header, .module-navigation {
+  .app-header,
+  .module-navigation {
     padding: 1.5rem 1rem;
   }
 
