@@ -20,6 +20,9 @@ import Exemplo17 from "./components/Exemplos/exemplo12enviar.vue";
 import Exemplo18 from "./components/Exercicios 07/exemplo14products.vue";
 import Exemplo19 from "./components/Exemplos/exemplo15emits.vue";
 import Exemplo20 from "./components/Exercicios 07/exemplo15item.vue";
+import Exemplo21 from "./components/Exercicios 08/CardComponentExample.vue";
+import Exemplo22 from "./components/Exercicios 08/ButtonComponentExample.vue";
+import Exemplo23 from "./components/Exercicios 09/CardExample.vue";
 
 const currentModule = ref(1);
 const gridRef = ref(null);
@@ -107,36 +110,38 @@ const modules = {
       { id: "2", title: "Catálogo de Produtos", component: Exemplo08 },
     ],
   },
-  // 4: {
-  //   title: "Módulo 4 - HTML Dinâmico",
-  //   description: "Renderização de HTML e Componentes Dinâmicos",
-  //   exercises: [{ id: "1", title: "HTML Render", component: Exemplo09 }],
-  // },
-  5: {
-    title: "Módulo 5 - Formulários e Botões",
+  4: {
+    title: "Módulo 4 - Formulários e Botões",
     description: "Formulários e Botões",
     exercises: [
       { id: "1", title: "Formulário Interativo", component: Exemplo10 },
       { id: "2", title: "IMC Calculator", component: exemplo11 },
-      { id: "3", title: "Botões Dinâmicos", component: Exemplo13 },
       { id: "4", title: "Eventos de Clique", component: Exemplo14 },
     ],
   },
-  // 6: {
-  //   title: "Módulo 6 - Eventos Personalizados",
-  //   description: "Eventos de Teclado e Clique",
-  //   exercises: [
-  //     { id: "2", title: "Custom Event Handling", component: Exemplo16 },
-  //   ],
-  // },
-  7: {
-    title: "Módulo 7 - Product Card",
+  5: {
+    title: "Módulo 5 - Product Card",
     description: "Exibição de produtos com props dinâmicas",
     exercises: [
       { id: "1", title: "Product Card Demo", component: Exemplo18 },
-      { id: "2", title: "Product Item List", component: Exemplo20 },
     ],
   },
+  6: {
+    title: "Módulo 6 - Item List",
+    description: "Lista de itens com props dinâmicas",
+    exercises: [
+      { id: "1", title: "Item List Demo", component: Exemplo20 },
+    ],
+  },
+  7: {
+    title: "Módulo 7 - Slots em Componentes",
+    description: "Componentes reutilizáveis com slots",
+    exercises: [
+      { id: "1", title: "Card Component with Named Slots", component: Exemplo21 },
+      { id: "2", title: "Button Component with Default Slot", component: Exemplo22 },
+      { id: "3", title: "Card Example with Props and Slots", component: Exemplo23 },
+    ],
+  }
 };
 
 const switchModule = (moduleNumber) => {
@@ -150,28 +155,34 @@ const switchModule = (moduleNumber) => {
 <template>
   <div class="app-container">
     <div class="background-grid"></div>
+    
+    <!-- Cursor customizado mais sutil -->
     <div ref="cursorRef" class="custom-cursor" :class="{ clickable: isClickable }"></div>
     <div ref="trailRef" class="cursor-trail" :class="{ clickable: isClickable }"></div>
 
+    <!-- Header mais limpo -->
     <header class="app-header">
       <div class="header-content">
         <div class="logo-section">
           <div class="tech-icon">
-            <div class="icon-inner"></div>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm4.64-1.96l3.54 3.54c.78.78 2.05.78 2.83 0l7.07-7.07c.78-.78.78-2.05 0-2.83-.78-.78-2.05-.78-2.83 0L12 9.34 6.75 4.1c-.78-.78-2.05-.78-2.83 0s-.78 2.05 0 2.83l2.72 2.72z"/>
+            </svg>
           </div>
           <div class="title-section">
-            <h1 class="main-title">
-              Agnaldo<span class="accent">Scaion</span>
-            </h1>
-            <p class="subtitle">Vue.js Showcase</p>
+            <h1 class="main-title">Agnaldo<span class="accent">Scaion</span></h1>
+            <p class="subtitle">Vue.js Learning Platform</p>
           </div>
         </div>
-        <div class="credits-button">
-          <a href="https://agnaldoscaion.netlify.app" target="_blank" class="github-button">Meu Portfólio</a>
+        <div class="header-actions">
+          <a href="https://4gn.netlify.app" target="_blank" class="portfolio-btn">
+            Meu Portfólio
+          </a>
         </div>
       </div>
     </header>
 
+    <!-- Navegação simplificada -->
     <nav class="module-navigation">
       <div class="nav-content">
         <div class="module-tabs">
@@ -182,20 +193,19 @@ const switchModule = (moduleNumber) => {
             :class="['module-tab', { active: currentModule === key }]"
           >
             <span class="tab-number">{{ key }}</span>
-            <span class="tab-title">{{ module.title }}</span>
+            <span class="tab-title">Módulo {{ key }}</span>
           </button>
         </div>
         <div class="module-info">
           <h2 class="module-title">{{ modules[currentModule].title }}</h2>
-          <p class="module-description">
-            {{ modules[currentModule].description }}
-          </p>
+          <p class="module-description">{{ modules[currentModule].description }}</p>
         </div>
       </div>
     </nav>
 
+    <!-- Grid de componentes redesenhado -->
     <main class="components-grid" ref="gridRef">
-      <TransitionGroup name="tech-grid" tag="div" class="components-grid-inner">
+      <TransitionGroup name="fade-slide" tag="div" class="grid-container">
         <div
           v-if="modules[currentModule].exercises.length > 0"
           v-for="exercise in modules[currentModule].exercises"
@@ -203,62 +213,71 @@ const switchModule = (moduleNumber) => {
           class="component-card"
         >
           <div class="card-header">
-            <div class="card-number">{{ currentModule }}.{{ exercise.id }}</div>
-            <h2>{{ exercise.title }}</h2>
-            <div class="card-status"></div>
+            <div class="card-badge">{{ currentModule }}.{{ exercise.id }}</div>
+            <h3 class="card-title">{{ exercise.title }}</h3>
           </div>
           <div class="card-content">
             <component :is="exercise.component" />
           </div>
         </div>
+        
         <div v-else class="empty-module" :key="`empty-${currentModule}`">
-          <div class="empty-icon">
-            <div class="construction-icon">🚧</div>
-          </div>
-          <h3>Módulo em Desenvolvimento</h3>
-          <p>
-            Os exercícios do {{ modules[currentModule].title }} serão adicionados em breve.
-          </p>
-          <div class="coming-soon">
-            <span class="pulse-dot"></span>
-            Em breve...
+          <div class="empty-content">
+            <div class="empty-icon">🚧</div>
+            <h3>Em Desenvolvimento</h3>
+            <p>Os exercícios do {{ modules[currentModule].title }} serão adicionados em breve.</p>
           </div>
         </div>
       </TransitionGroup>
     </main>
 
+    <!-- Footer simplificado -->
     <footer class="app-footer">
       <div class="footer-content">
-        <div class="footer-left">
-          <p>VueTech Platform v2.1.0 | Módulo {{ currentModule }} Ativo</p>
-        </div>
-        <div class="footer-right">
-          <div class="tech-metrics">
-            <span class="metric">Módulos: {{ Object.keys(modules).length }}</span>
-            <span class="metric">Exercícios: {{ modules[currentModule].exercises.length }}</span>
-            <span class="metric">Performance: 98%</span>
-          </div>
-        </div>
+        <p>Vue Learning Platform v2.0 • Módulo {{ currentModule }} • {{ modules[currentModule].exercises.length }} Exercícios</p>
       </div>
     </footer>
   </div>
 </template>
 
 <style>
+/* ===== VARIÁVEIS DE DESIGN ===== */
 :root {
-  --bg-primary: #0a0a0b;
-  --bg-secondary: #111114;
-  --bg-tertiary: #1a1a1e;
-  --accent-primary: #ffd700;
-  --accent-secondary: #ffd700;
-  --accent-tertiary: #ffd700;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --border-color: #334155;
-  --border-glow: rgba(255, 215, 0, 0.3);
-  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  --glow-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+  /* Cores principais */
+  --accent-primary: #ffd700; /* Dourado como destaque */
+  --accent-secondary: #d4af37; /* Tom mais escuro de dourado */
+  --accent-tertiary: #f0e68c; /* Tom mais claro de dourado */
+  
+  /* Background */
+  --bg-primary: #0a0a0b; /* Fundo preto escuro */
+  --bg-secondary: #111114; /* Cinza escuro para contraste */
+  --bg-tertiary: #1a1a1e; /* Cinza mais escuro para detalhes */
+  --bg-card: #141417; /* Fundo dos cartões */
+  
+  /* Texto */
+  --text-primary: #e2e8f0; /* Branco acinzentado */
+  --text-secondary: #94a3b8; /* Cinza claro */
+  --text-muted: #64748b; /* Cinza mais escuro */
+  
+  /* Bordas e sombras */
+  --border-color: #334155; /* Cinza escuro para bordas */
+  --border-glow: rgba(255, 215, 0, 0.3); /* Brilho dourado sutil */
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Sombra dos cartões */
+  --glow-shadow: 0 0 20px rgba(255, 215, 0, 0.1); /* Brilho dourado */
+  
+  /* Layout */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --spacing-base: 1rem;
+  --spacing-large: 2rem;
+  --container-width: 1200px;
+}
+
+/* ===== RESET E BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -266,190 +285,126 @@ html {
   cursor: none;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
-}
-
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  overflow-x: hidden;
+  font-size: 16px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Cursor Personalizado */
+/* ===== CURSOR PERSONALIZADO (MAIS SUTIL) ===== */
 .custom-cursor {
-  position: fixed;
-  width: 16px;
-  height: 16px;
-  background: #000000;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-    background 0.2s ease, border-color 0.2s ease, opacity 0.3s ease-out;
-  box-shadow: 0 0 8px var(--accent-primary);
-}
-
-.custom-cursor.clickable {
-  background: #ffffff;
-  border: 2px solid #000000;
-}
-
-.cursor-trail {
   position: fixed;
   width: 12px;
   height: 12px;
   background: #000000;
-  border: 1px solid #ffffff;
+  border: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
+  box-shadow: 0 0 8px var(--accent-primary);
+}
+
+.custom-cursor.clickable {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: #000000;
+  border: 1px solid var(--accent-primary);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.5;
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-    background 0.2s ease, border-color 0.2s ease, opacity 0.4s ease-out;
+  opacity: 0.4;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   box-shadow: 0 0 6px var(--accent-primary);
 }
 
 .cursor-trail.clickable {
-  background: #ffffff;
-  border: 1px solid #000000;
+  transform: scale(1.2);
+  opacity: 0.6;
 }
 
 /* Ocultar cursor padrão */
-a,
-button:not(.login-button),
-input,
-[role="button"],
-[style*="cursor: pointer"],
-.clickable {
-  cursor: none;
+a, button, input, [role="button"], [style*="cursor: pointer"], .clickable {
+  cursor: none !important;
 }
 
-.component-card [style*="cursor: pointer"],
-.component-card .clickable,
-.component-card a,
-.component-card button:not(.login-button),
-.component-card input,
-.component-card [role="button"] {
-  cursor: none;
-}
-
-/* Efeito ao passar por elementos interativos */
-a:hover ~ .custom-cursor,
-button:not(.login-button):hover ~ .custom-cursor,
-input:hover ~ .custom-cursor,
-[role="button"]:hover ~ .custom-cursor,
-[style*="cursor: pointer"]:hover ~ .custom-cursor,
-.clickable:hover ~ .custom-cursor {
-  transform: scale(1.5);
-}
-
-a:hover ~ .cursor-trail,
-button:not(.login-button):hover ~ .cursor-trail,
-input:hover ~ .cursor-trail,
-[role="button"]:hover ~ .cursor-trail,
-[style*="cursor: pointer"]:hover ~ .cursor-trail,
-.clickable:hover ~ .cursor-trail {
-  transform: scale(1.3);
-  opacity: 0.3;
-}
-
-/* Background Grid */
+/* ===== BACKGROUND GRID (MAIS SUTIL) ===== */
 .background-grid {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(
-      rgba(255, 215, 0, 0.03) 1px,
-      transparent 1px
-    ),
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-size: 60px 60px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Layout Principal */
+/* ===== LAYOUT PRINCIPAL ===== */
 .app-container {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   position: relative;
   z-index: 1;
 }
 
-/* Header */
+/* ===== HEADER LIMPO ===== */
 .app-header {
-  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
-  padding: 3rem 2rem;
-  position: relative;
-}
-
-.app-header::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--accent-primary);
+  padding: 2rem 0;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-content {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .tech-icon {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   background: var(--accent-primary);
-  border-radius: 15px;
+  color: var(--bg-primary);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   box-shadow: var(--glow-shadow);
 }
 
-.tech-icon::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  background: var(--bg-secondary);
-  border-radius: 13px;
-}
-
-.icon-inner {
+.tech-icon svg {
   width: 24px;
   height: 24px;
-  background: var(--accent-primary);
-  border-radius: 6px;
-  position: relative;
-  z-index: 1;
 }
 
-.title-section h1 {
-  font-size: 3rem;
+.main-title {
+  font-size: 1.75rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
@@ -459,256 +414,214 @@ input:hover ~ .cursor-trail,
 
 .subtitle {
   color: var(--text-secondary);
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
-.github-button {
-  display: inline-block;
+.portfolio-btn {
   padding: 0.75rem 1.5rem;
   background: var(--accent-primary);
   color: var(--bg-primary);
-  border-radius: 10px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
 }
 
-.github-button:hover {
-  background: rgba(255, 215, 0, 0.8);
-  transform: translateY(-2px);
+.portfolio-btn:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--glow-shadow), var(--card-shadow);
 }
 
-/* Navegação */
+/* ===== NAVEGAÇÃO SIMPLIFICADA ===== */
 .module-navigation {
-  background: var(--bg-secondary);
+  background: var(--bg-tertiary);
   border-bottom: 1px solid var(--border-color);
-  padding: 2.5rem 2rem;
-  margin-bottom: 3rem;
+  padding: 2rem 0;
 }
 
 .nav-content {
-  max-width: 1400px;
+  max-width: var(--container-width);
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .module-tabs {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
 }
 
 .module-tab {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: var(--bg-tertiary);
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   color: var(--text-secondary);
-  cursor: none;
-  transition: all 0.3s ease;
   font-family: inherit;
-  font-size: 0.95rem;
-  min-height: 60px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .module-tab:hover {
   border-color: var(--border-glow);
-  background: rgba(255, 215, 0, 0.05);
-  transform: translateY(-2px);
+  color: var(--text-primary);
 }
 
 .module-tab.active {
   background: rgba(255, 215, 0, 0.1);
   border-color: var(--accent-primary);
   color: var(--text-primary);
-  transform: translateY(-2px);
 }
 
 .tab-number {
   font-weight: 700;
-  color: var(--accent-primary);
-  font-size: 1rem;
-  min-width: 20px;
+  font-size: 0.75rem;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 215, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
 }
 
-.tab-title {
-  font-weight: 500;
-  white-space: nowrap;
+.module-tab.active .tab-number {
+  background: rgba(255, 215, 0, 0.3);
+}
+
+.module-tab:not(.active) .tab-number {
+  background: var(--accent-tertiary);
+  color: var(--bg-primary);
 }
 
 .module-info {
-  border-left: 3px solid var(--accent-primary);
-  padding-left: 2rem;
-  background: rgba(255, 215, 0, 0.02);
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
 }
 
 .module-title {
-  color: var(--text-primary);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
 }
 
 .module-description {
   color: var(--text-secondary);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-/* Grid de Componentes */
+/* ===== GRID DE COMPONENTES LIMPO ===== */
 .components-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 3rem;
-  padding: 0 3rem;
-  max-width: 1400px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  flex: 1;
-  min-height: 400px;
+  padding: 3rem 2rem;
 }
 
-.components-grid-inner {
-  display: contents;
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
 }
 
 .component-card {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 20px;
+  border-radius: var(--radius);
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  min-height: 550px;
-  cursor: none;
-}
-
-.component-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--accent-primary);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
 }
 
 .component-card:hover {
-  transform: translateY(-10px);
   border-color: var(--border-glow);
-  box-shadow: var(--card-shadow), var(--glow-shadow);
-}
-
-.component-card:hover::before {
-  opacity: 1;
+  box-shadow: var(--glow-shadow), var(--card-shadow);
+  transform: translateY(-2px);
 }
 
 .card-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 2rem;
+  padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
   background: var(--bg-tertiary);
-  min-height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.card-number {
-  font-size: 0.8rem;
+.card-badge {
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: var(--accent-primary);
-  background: rgba(255, 215, 0, 0.1);
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
-.card-header h2 {
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
   color: var(--text-primary);
-  font-size: 1.3rem;
-  font-weight: 600;
   flex: 1;
 }
 
-.card-status {
-  width: 8px;
-  height: 8px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-primary);
-}
-
 .card-content {
-  padding: 2.5rem;
-  min-height: 400px;
+  padding: 2rem;
+  min-height: 300px;
 }
 
-/* Módulo Vazio */
+/* ===== MÓDULO VAZIO ===== */
 .empty-module {
   grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5rem 3rem;
-  text-align: center;
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 2px dashed var(--border-color);
-  border-radius: 20px;
-  min-height: 500px;
+  border-radius: var(--radius);
+  padding: 3rem;
+  text-align: center;
+}
+
+.empty-content {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .empty-icon {
-  margin-bottom: 2rem;
-}
-
-.construction-icon {
-  font-size: 5rem;
-  opacity: 0.7;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
 }
 
 .empty-module h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: var(--text-primary);
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .empty-module p {
   color: var(--text-secondary);
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.coming-soon {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--text-muted);
   font-size: 1rem;
 }
 
-.pulse-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Footer */
+/* ===== FOOTER COM ESQUEMA DOURADO ===== */
 .app-footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
-  margin-top: 4rem;
+  margin-top: 3rem;
   position: relative;
 }
 
@@ -723,143 +636,48 @@ input:hover ~ .cursor-trail,
 }
 
 .footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  max-width: 1400px;
+  max-width: var(--container-width);
   margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.footer-left p {
+.footer-content p {
   color: var(--text-secondary);
-  font-size: 1rem;
-  font-family: "SF Mono", monospace;
+  font-size: 0.875rem;
+  font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
 }
 
-.tech-metrics {
-  display: flex;
-  gap: 2rem;
+/* ===== ANIMAÇÕES SUAVES ===== */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
 }
 
-.metric {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  font-family: "SF Mono", monospace;
-  position: relative;
-}
-
-.metric::before {
-  content: "●";
-  color: var(--accent-primary);
-  margin-right: 0.75rem;
-}
-
-/* Animações */
-.tech-grid-enter-active,
-.tech-grid-leave-active {
-  transition: all 0.4s ease;
-}
-
-.tech-grid-enter-from,
-.tech-grid-leave-to {
+.fade-slide-enter-from,
+.fade-slide-leave-to {
   opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  filter: blur(2px);
+  transform: translateY(20px);
 }
 
-.tech-grid-enter-to,
-.tech-grid-leave-from {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.tech-grid-enter-active::before,
-.tech-grid-leave-active::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--accent-primary),
-    transparent
-  );
-  animation: glitch-line 0.4s ease;
-}
-
-@keyframes glitch-line {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.1);
-  }
-}
-
-/* Responsividade */
-@media (max-width: 1200px) {
-  .components-grid {
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 2.5rem;
-    padding: 0 2rem;
-  }
-
-  .header-content {
-    max-width: 100%;
-  }
-
-  .nav-content {
-    max-width: 100%;
-  }
-
-  .footer-content {
-    max-width: 100%;
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .components-grid {
-    grid-template-columns: 1fr;
-    padding: 0 1.5rem;
-    gap: 2rem;
-  }
-
-  .app-header,
-  .module-navigation {
-    padding: 2rem 1.5rem;
-  }
-
   .header-content {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     text-align: center;
-  }
-
-  .title-section h1 {
-    font-size: 2.5rem;
   }
 
   .module-tabs {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
   }
 
   .module-tab {
@@ -867,16 +685,21 @@ input:hover ~ .cursor-trail,
     justify-content: flex-start;
   }
 
-  .module-info {
-    padding-left: 1.5rem;
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .component-card {
-    min-height: auto;
+  .components-grid {
+    padding: 2rem 1rem;
   }
 
-  .card-content {
-    padding: 1.5rem;
+  .nav-content {
+    padding: 0 1rem;
+  }
+
+  .header-content {
+    padding: 0 1rem;
   }
 }
 
@@ -885,22 +708,27 @@ input:hover ~ .cursor-trail,
   .cursor-trail {
     display: none !important;
   }
-
+  
   * {
     cursor: auto !important;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-content {
-    flex-direction: column;
-    gap: 1.5rem;
-    text-align: center;
+  .card-content {
+    padding: 1.5rem;
   }
-
-  .tech-metrics {
-    flex-direction: column;
-    gap: 0.75rem;
+  
+  .module-info {
+    padding: 1rem;
+  }
+  
+  .app-header {
+    padding: 1rem 0;
+  }
+  
+  .module-navigation {
+    padding: 1.5rem 0;
   }
 }
 </style>
